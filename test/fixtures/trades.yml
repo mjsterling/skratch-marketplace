@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  req_amount: 1
+  req_hours: 1.5
+  offer_amount: 1
+  offer_hours: 1.5
+  contract1: MyString
+  contract2: MyString
+
+two:
+  status: 1
+  req_amount: 1
+  req_hours: 1.5
+  offer_amount: 1
+  offer_hours: 1.5
+  contract1: MyString
+  contract2: MyString

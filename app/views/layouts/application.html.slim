@@ -3,10 +3,29 @@ html
   head 
     title Skratch 
     meta name="viewport" content="width=device-width,initial-scale=1"
-    stylesheet_link_tag :all
-    javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    csrf_meta_tags
-    csp_meta_tag 
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_pack_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    = csp_meta_tag 
   body
-    = render 'navbar'
-    = yield
+    .body-flex-container
+      header.navbar
+        = render 'logo'
+        img(id="menubtn" onClick="document.getElementById('navmenu').classList.toggle('hidden')" src="background-img: url(#{current_user.avatar}")
+        nav#navmenu 
+          ul.navlist
+            - if user_signed_in? 
+              li
+                = link_to("Edit profile", edit_user_registration_path)
+              li
+                = link_to("Active trades", trades_path)
+              li
+                = link_to("Reviews", reviews_path)
+              li 
+                = link_to("Sign out", destroy_user_session_path)
+            - else 
+              li
+                = link_to("Sign In", new_user_session_path)
+              li
+                = link_to("Create Account", new_user_registration_path) 
+      = yield

@@ -1,0 +1,82 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+:root {
+    background-color: #222222;
+    color: #FFFFFF;
+}
+
+button {
+    background-color: #4D0067;
+    border: 2px solid white;
+    border-radius: 2.5vh;
+    height: 5vh;
+    cursor: pointer;
+}
+
+a {
+    /* background-color: #4D0067;
+    border: 2px solid white; */
+    border-radius: 2vh;
+    color: white;
+    text-decoration: none
+}
+
+a:hover {
+    box-shadow: 0 0 5px white;
+}
+
+li {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+.body-flex-container {
+    margin-top: 15vh;
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: fit-content;
+}
+
+.hidden {
+    display: none;
+}
+
+#logo {
+    position: fixed;
+    max-width: 60vw;
+    max-height: 10vh;
+    top: 2vh;
+    margin: auto;
+    border: 0px solid transparent;
+    background-color: transparent;
+}
+
+.navbar {
+    height: 15vh;
+    position: fixed;
+    display: flex;
+    top: 0;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.navbtn {
+    height: 5vh;
+    width: 5vh;
+}
+
+@import 'hamburgers'

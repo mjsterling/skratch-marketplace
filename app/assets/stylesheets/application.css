@@ -13,70 +13,96 @@
  *= require_tree .
  *= require_self
  */
+
+ @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+ 
 :root {
-    background-color: #222222;
-    color: #FFFFFF;
+  background-color: #222222;
+  color: #ffffff;
+  font-family: 'Roboto';
+  box-sizing: border-box;   
 }
 
 button {
-    background-color: #4D0067;
-    border: 2px solid white;
-    border-radius: 2.5vh;
-    height: 5vh;
-    cursor: pointer;
+  background-color: #4d0067;
+  border: 2px solid white;
+  border-radius: 2.5vh;
+  height: 5vh;
+  cursor: pointer;
 }
 
 a {
-    /* background-color: #4D0067;
-    border: 2px solid white; */
-    border-radius: 2vh;
-    color: white;
-    text-decoration: none
+  color: white;
+  text-decoration: none;
 }
 
 a:hover {
-    box-shadow: 0 0 5px white;
+  box-shadow: 0 0 5px white;
 }
 
 li {
-    list-style-type: none;
-    margin-left: 0;
+  list-style-type: none;
+  margin-left: 0;
+  text-align: center;
 }
 
 .body-flex-container {
-    margin-top: 15vh;
-    display: flex;
-    flex-flow: column nowrap;
-    max-width: fit-content;
+  margin-top: 15vh;
+  display: flex;
+  flex-flow: column nowrap;
+  width: fit-content;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #logo {
-    position: fixed;
-    max-width: 60vw;
-    max-height: 10vh;
-    top: 2vh;
-    margin: auto;
-    border: 0px solid transparent;
-    background-color: transparent;
+  position: fixed;
+  height: 6vh;
+  top: 4vh;
+  left: 10vw;
+  margin: 0 auto;
+  border: 0px solid transparent;
+  background-color: transparent;
 }
 
 .navbar {
-    height: 15vh;
-    position: fixed;
-    display: flex;
-    top: 0;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-items: center;
+  height: 12vh;
+  position: fixed;
+  display: flex;
+  top: 4vh;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .navbtn {
-    height: 5vh;
-    width: 5vh;
+  height: 6vh;
+  width: 6vh;
+  top: 4vh;
+  right: 15vw;
+  position: fixed;
+  border-radius: 2vh;
+  border: 2px solid white;
+  cursor: pointer;
 }
 
-@import 'hamburgers'
+.navlink {
+  background-color: #4d0067;
+  border: 2px solid white;
+  border-radius: 2.5vh;
+  padding: 0.5vh 3vw;
+  margin: 2vh 0;
+  width: 30vw;
+  text-align: center;
+}
+
+#navmenu {
+  position: fixed;
+  right: 2vh;
+  top: 10vh;
+}
+
+@media only screen and (max-aspect-ratio: 3/4) {
+}

@@ -1,0 +1,17 @@
+doctype html 
+html 
+  head 
+    title Skratch 
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_pack_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    = csp_meta_tag 
+  body
+    header.navbar
+      = link_to(root_path) do 
+        = image_tag("logo.png", :id => "logo", :alt => "logo")
+      = render 'navmenu'
+
+    .body-flex-container
+      = yield

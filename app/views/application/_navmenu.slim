@@ -1,0 +1,26 @@
+<div class="navbtn" onClick="document.getElementById('navmenu').classList.toggle('hidden')">
+  - if user_signed_in? && current_user.avatar
+    img.navbtn src="#{current_user.avatar}" /
+  - else
+    = image_tag("avatar.png", :class => "navbtn")
+</div>
+nav#navmenu 
+  ul.navlist
+    - if user_signed_in?
+      li
+        span #{current_user.email}
+      li.navlink
+        = link_to("Edit profile",   edit_user_registration_path)
+      li.navlink
+        = link_to("Active trades",  trades_path)
+      li.navlink
+        = link_to("Reviews",        reviews_path)
+      li.navlink
+        = link_to("Sign out",       destroy_user_session_path)
+    - else
+      li 
+        | Not signed in 
+      li.navlink
+        = link_to("Sign In",        new_user_session_path)
+      li.navlink
+        = link_to("Create Account", new_user_registration_path) 

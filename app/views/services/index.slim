@@ -1,1 +1,7 @@
-= form_for @service
+h1 #{params["format"]}
+
+- @services.each do |s|
+  .service
+    h2.service-title #{s.title}
+    .service-body #{s.description}
+    .service-body #{s.keywords}

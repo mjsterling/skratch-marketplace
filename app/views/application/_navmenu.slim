@@ -1,10 +1,10 @@
 <div class="navbtn" onClick="document.getElementById('navmenu').classList.toggle('hidden')">
   - if user_signed_in? && current_user.avatar
-    img.navbtn src="#{current_user.avatar}" /
+    img.navbtn src="#{current_user.avatar}"
   - else
     = image_tag("avatar.png", :class => "navbtn")
 </div>
-nav#navmenu 
+nav#navmenu.hidden
   ul.navlist
     - if user_signed_in?
       li

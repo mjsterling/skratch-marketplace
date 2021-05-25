@@ -4,10 +4,6 @@ h2 Edit Profile
   = render "users/shared/error_messages", resource: resource 
 
   .field
-    = f.label :avatar, "Change Profile Picture"
-    = f.file :avatar
-
-  .field
     = f.label :email
     = f.email_field :email, autofocus: true, autocomplete: "email" 
 

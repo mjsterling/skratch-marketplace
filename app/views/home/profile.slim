@@ -1,5 +1,6 @@
 p Logged in as #{current_user.email}
 = render "avatar"
+= form_with 
 p.bold
   = current_user.first_name? ? "Welcome back, #{current_user.first_name}" : "Please complete your profile."
 .category

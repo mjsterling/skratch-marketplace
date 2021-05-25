@@ -1,4 +1,6 @@
-h1 #{params["format"]}
+= render("searchbar")
+
+h2 #{params["keywords"]} listings
 
 - @services.each do |s|
   .service

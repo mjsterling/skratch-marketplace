@@ -60,4 +60,7 @@ gem "devise", "~> 4.8"
 gem "cancancan", "~> 3.2"
 
 gem "carrierwave", "~> 2.2"
-gem "bootstrap-sass", "~> 3.4"
+
+gem "mini_magick", "~> 4.11"
+
+gem "carrierwave-base64", "~> 2.10"

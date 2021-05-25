@@ -4,7 +4,12 @@ class ServicesController < ApplicationController
         @services = Service.all
     end
     def index
-        @services = Service.where(category: params["format"])
-        render layout: "application"
+        if params["keywords"]
+            @services = Service.where("keywords RLIKE ? #{params["keywords"]}")
+        elsif params["category"]
+            @services = Service.where(category: params["category"])
+        else 
+            @services = Service.all
+        end
     end
 end

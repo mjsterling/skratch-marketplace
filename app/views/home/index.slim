@@ -1,13 +1,10 @@
 h1.instruction Search for a service:
 
-= form_with url: services_path, method: :get do |f|
-  .searchbar
-    = f.text_field :keywords
-    = f.submit '🔍', id: 'keywords-submit'
+= render "searchbar"
 
 h1.instruction Or browse categories:
 
 .navlist 
-  - @constants.categories.each do |cat|
+  - @consts.categories.each do |cat|
     .category
       = link_to(cat, "/services?category=#{cat.gsub(/\W+/, "")}")

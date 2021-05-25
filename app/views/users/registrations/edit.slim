@@ -4,6 +4,10 @@ h2 Edit Profile
   = render "users/shared/error_messages", resource: resource 
 
   .field
+    = f.label :avatar, "Change Profile Picture"
+    = f.file :avatar
+
+  .field
     = f.label :email
     = f.email_field :email, autofocus: true, autocomplete: "email" 
 
@@ -34,9 +38,7 @@ h2 Edit Profile
     = f.password_field :password_confirmation, autocomplete: "new-password" 
 
   .actions
-    = f.submit "Save Changes"
+    = f.submit "Save Changes", id: "submit"
 
 h3 Unhappy?
 = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
-
-= link_to "Back", :back 

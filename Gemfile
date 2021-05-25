@@ -58,3 +58,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "slim-rails", "~> 3.2"
 gem "devise", "~> 4.8"
 gem "cancancan", "~> 3.2"
+
+gem "carrierwave", "~> 2.2"
+gem "bootstrap-sass", "~> 3.4"

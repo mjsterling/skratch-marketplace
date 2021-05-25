@@ -9,7 +9,7 @@ class Constants
           'Education & Training',
           'Hair & Beauty',
           'Home & Gardening',
-          'IT & Web Development'
+          'IT & Software Development'
         ]
     end
 end

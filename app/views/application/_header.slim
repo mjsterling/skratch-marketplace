@@ -1,0 +1,7 @@
+header.navbar
+  a href="javascript:history.back()"
+    h2.bold 🡸
+  = link_to(root_path) do 
+    = image_tag("logo.png", :id => "logo", :alt => "logo")
+  a href="/profile"
+    = render "avatar"

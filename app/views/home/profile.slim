@@ -1,0 +1,12 @@
+p Logged in as #{current_user.email}
+= render "avatar"
+p.bold
+  = current_user.first_name? ? "Welcome back, #{current_user.first_name}" : "Please complete your profile."
+.category
+  = link_to("Edit profile",   edit_user_registration_path)
+.category
+  = link_to("Active trades",  trades_path)
+.category
+  = link_to("Reviews",        reviews_path)
+.category
+  = link_to("Sign out",       destroy_user_session_path, method: :delete)

@@ -4,5 +4,4 @@ class User < ApplicationRecord
   has_many :reviews 
   has_many :services
   has_many :trades
-  has_one :avatar
 end

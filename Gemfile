@@ -61,10 +61,4 @@ gem "cancancan", "~> 3.2"
 
 gem "mini_magick", "~> 4.11"
 
-gem "carrierwave-base64", "~> 2.10"
 
-gem "carrierwave", "~> 2.2"
-
-gem "figaro", "~> 1.2"
-
-gem "fog-aws", "~> 3.10"

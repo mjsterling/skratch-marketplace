@@ -1,7 +1,6 @@
 require_relative "../../lib/poros/lists"
 
 class ApplicationController < ActionController::Base
-    before_action :consts
     before_action :authenticate_user!
 
     attr_reader :lists

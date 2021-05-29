@@ -1,0 +1,15 @@
+= form_for @service, url: "/services/#{@service.id}", method: :patch do |f|
+  .field 
+    = f.label :category, "Category"
+    = f.select :category, @categories
+  .field
+    = f.label :name, "Title", style: "margin-top: 2vh;"
+    = f.text_field :name
+  .field
+    = f.label :description, "Description"
+    = f.text_field :description
+  .field
+    = f.label :price, "Price per hour"
+    = f.number_field :price
+  .field 
+    = f.submit

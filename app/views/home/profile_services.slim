@@ -1,0 +1,13 @@
+h2 Add/Update Services
+
+- @services.each do |s|
+  .service
+    h3.service-title #{s.name}
+    p #{s.description}
+    p #{s.price} per hour
+    = link_to "Edit", "/services/#{s.id}/edit"
+    = link_to "Remove", "/services/#{s.id}", :method => :delete
+
+= link_to new_service_path do 
+  .category
+    span List a Service

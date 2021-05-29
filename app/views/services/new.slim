@@ -1,0 +1,17 @@
+p #{flash.alert}
+
+= form_for @service, url: services_path do |f|
+  .field 
+    = f.label :category, "Category"
+    = f.select :category, @categories
+  .field
+    = f.label :name, "Title", style: "margin-top: 2vh;"
+    = f.text_field :name
+  .field
+    = f.label :description, "Description"
+    = f.text_field :description
+  .field
+    = f.label :price, "Price per hour"
+    = f.number_field :price
+  .field 
+    = f.submit

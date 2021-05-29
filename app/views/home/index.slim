@@ -5,6 +5,6 @@ h1.instruction Search for a service:
 h1.instruction Or browse categories:
 
 .navlist 
-  - @lists.categories.each do |cat|
+  - @categories.each do |cat|
     .category
-      = link_to(cat, "/services?category=#{cat.gsub(/\W+/, "")}")
+      = link_to(cat, services_path(:category => cat))

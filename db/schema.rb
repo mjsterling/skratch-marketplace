@@ -10,45 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_27_114326) do
+ActiveRecord::Schema.define(version: 2021_05_29_114117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "reviews", force: :cascade do |t|
-    t.integer "score"
-    t.string "comment"
+  create_table "balances", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "balance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "target_id"
-    t.integer "service_id"
   end
 
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "keywords"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "category"
     t.integer "user_id"
+    t.string "region"
+    t.integer "price"
   end
 
   create_table "trades", force: :cascade do |t|
-    t.integer "status"
-    t.integer "target_amount"
-    t.float "target_hours"
-    t.integer "user_amount"
-    t.float "user_hours"
-    t.string "contract1"
-    t.string "contract2"
+    t.integer "user_id"
+    t.integer "seller_id"
+    t.integer "service_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "target_id"
-    t.integer "user_service_id"
-    t.integer "target_service_id"
+    t.integer "price"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_05_27_114326) do
     t.string "first_name"
     t.string "last_name"
     t.string "avatar"
-    t.integer "balance"
+    t.string "region"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

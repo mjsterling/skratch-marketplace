@@ -1,0 +1,26 @@
+h2 Sales
+- if @sales.is_a?(String)
+  p #{@sales}
+- else 
+  = @sales.each do |sale|
+    .service-container
+      h3.bold #{sale[:name]}
+      p Purchased: #{sale[:created_at]}
+      p Purchased for: #{sale[:price]} SkratchCoins
+      p Buyer Email:
+      span.bold
+        = link_to("Buyer: #{sale[:email]}", "mailto:#{sale[:email]}")
+      p Please email buyer to arrange delivery of service.
+
+h2 Purchases
+- if @purchases.is_a?(String)
+  p #{@purchases}
+- else 
+  = @purchases.each do |sale| 
+    .service-container
+      h3.bold #{sale[:name]}
+      span Purchased: #{sale[:created_at]}
+      span Purchased for: #{sale[:price]} SkratchCoins
+      span.bold
+        = link_to("Seller: #{sale[:email]}", "mailto:#{sale[:email]}")
+      span Please email seller to arrange delivery of service.

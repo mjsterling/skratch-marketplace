@@ -10,4 +10,6 @@ html
   body
     = render "header"
     .body-flex-container
+      span #{flash[:notice]}
+      p #{flash[:alert]}
       = yield

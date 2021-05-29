@@ -1,7 +1,11 @@
 header.navbar
-  a href="javascript:history.back()"
-    h2.bold 🡸
+  = link_to(root_path) do
+    .label-container
+      #home-button.bold 🏠
+      span Home
   = link_to(root_path) do 
     = image_tag("logo.png", :id => "logo", :alt => "logo")
-  a href="/profile"
-    = render "avatar"
+  = link_to(profile_path) do
+    .label-container
+      = render "avatar"
+      span View Profile

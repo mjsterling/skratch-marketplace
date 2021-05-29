@@ -1,13 +1,17 @@
-p Logged in as #{current_user.email}
-= render "avatar"
-= form_with 
+= render "avatar" 
 p.bold
-  = current_user.first_name? ? "Welcome back, #{current_user.first_name}" : "Please complete your profile."
+  - if current_user.first_name && current_user.region
+    = "Welcome back, #{current_user.first_name}"
+  - else
+    = "Please complete your profile."
+p Current Balance: #{@balance} SkratchCoins
 .category
-  = link_to("Edit profile",   edit_user_registration_path)
+  = link_to("Buy SkratchCoins",    "#")
 .category
-  = link_to("Active trades",  trades_path)
+  = link_to("Edit profile",        edit_user_registration_path)
+.category   
+  = link_to("Add/update services", @add_services_path)
 .category
-  = link_to("Reviews",        reviews_path)
+  = link_to("View active trades",  trades_path)
 .category
-  = link_to("Sign out",       destroy_user_session_path, method: :delete)
+  = link_to("Sign out",            destroy_user_session_path, method: :delete)

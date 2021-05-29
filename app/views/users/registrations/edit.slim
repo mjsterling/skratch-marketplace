@@ -1,21 +1,21 @@
 h2 Edit Profile
 
+p #{@just_signed_up}
+
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| 
-  = render "users/shared/error_messages", resource: resource 
+  = render "users/shared/error_messages", resource: resource
 
   .field
+    = render 'avatar'
     = f.label :avatar, "Update Profile Picture"
     = f.file_field :avatar, accept:'image/*'
 
-  .field
-    = f.label :email
-    = f.email_field :email, autofocus: true, autocomplete: "email" 
-
-    = if devise_mapping.confirmable? && resource.pending_reconfirmation? 
-      span Currently awaiting confirmation for #{resource.unconfirmed_email}
+  .field style="margin-bottom: 2vh;"
+    = f.label :region, "Region*"
+    = f.select :region, @regions, style: "color: #FFFFFF; background-color: #4D0067"
 
   .field
-    = f.label :first_name, "First Name"
+    = f.label :first_name, "First Name*"
     = f.text_field :first_name
 
   .field
@@ -24,8 +24,23 @@ h2 Edit Profile
 
   .field
     = f.label :current_password, "Current Password*"
-    = f.password_field :current_password, autocomplete: "current-password" 
+    = f.password_field :current_password, autocomplete: "current-password"
+  
+  .actions
+    = f.submit "Save Changes", id: "submit", style: "margin-top: 2vh;"
 
+h3 Edit Login Details
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| 
+  = render "users/shared/error_messages", resource: resource
+ 
+  .field
+    = f.label :email
+    = f.email_field :email, autofocus: true, autocomplete: "email" 
+
+    = if devise_mapping.confirmable? && resource.pending_reconfirmation? 
+      span Currently awaiting confirmation for #{resource.unconfirmed_email}
+ 
   .field
     = f.label :password, "New Password"
     = f.password_field :password, autocomplete: "new-password" 
@@ -35,10 +50,14 @@ h2 Edit Profile
 
   .field
     = f.label :password_confirmation, "Confirm Password"
-    = f.password_field :password_confirmation, autocomplete: "new-password" 
+    = f.password_field :password_confirmation, autocomplete: "new-password"
+
+  .field
+    = f.label :current_password, "Current Password*"
+    = f.password_field :current_password, autocomplete: "current-password"
 
   .actions
-    = f.submit "Save Changes", id: "submit"
-
+    = f.submit "Save Changes", id: "submit", style: "margin-top: 2vh;" 
+ 
 h3 Unhappy?
 = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete

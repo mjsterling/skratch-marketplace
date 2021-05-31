@@ -15,7 +15,10 @@ class User < ApplicationRecord
   end
 
   def rating
-    Review.where(Tra sales.review.average(:rating).round(1)
+    reviews = Review.where(seller_id: self.id)
+    return "Unrated" if reviews.empty?
+    
+    reviews.average(:rating).round(1)
   end
 
   def name

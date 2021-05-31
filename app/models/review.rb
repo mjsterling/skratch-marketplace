@@ -1,5 +1,4 @@
 class Review < ApplicationRecord
-    belongs_to :user
     belongs_to :trade
 
     validates_presence_of :trade_id, :rating

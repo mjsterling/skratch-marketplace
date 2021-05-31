@@ -1,16 +1,12 @@
 h2 Add/Update Services
 
-- current_user.services.each do |s|
-  .service
+- @services.each do |s|
+  .service-container
     h3.service-title #{s.name}
     p #{s.description}
-    p #{s.price} per hour
+    p Price: #{s.price} SkratchCoins
     .link-container
       = link_to "Edit Listing", "/services/#{s.id}/edit"
-    = form_with url: service_path, method: :patch do
-      = hidden_field :id, value: s.id
-      = hidden_field :archived, value: true
-      = f.submit "Remove Listing"
 
 .link-container
   = link_to "List a Service", new_service_path

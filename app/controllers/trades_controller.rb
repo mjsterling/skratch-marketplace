@@ -2,14 +2,21 @@ class TradesController < ApplicationController
 
     def index
         # trades that have not been marked delivered by seller
-        @sales = current_user.services.trades.where seller_confirmed: false
+        @sales = Trade.where seller_id: current_user.id, seller_confirmed: false
+        @sales = "No active sales" if @sales.empty?
 
         # trades that are not marked delivered and/or not reviewed
-        @purchases = current_user.trades.where user_confirmed: false
+        @purchases = current_user.trades.where reviewed: false
+        @purchases = "No active purchases" if @purchases.empty?
     end
 
     def new
         @service = Service.find(params[:service_id])
+        if @service.user == current_user
+            flash[:alert] = 'You cannot purchase your own service.'
+            redirect_to root_path and return 
+        end
+
         @trade = Trade.new(service_id: @service.id)
     end
 
@@ -22,10 +29,26 @@ class TradesController < ApplicationController
         @trade.user_confirmed = false
         @trade.seller_confirmed = false
         @trade.reviewed = false
+        @trade.seller_id = @trade.service.user_id
         if @trade.save!
-            update_balances(@trade)
+            price = @trade.service.price.to_i
+            values = [current_user.balance.balance, @trade.seller.balance.balance]
+            pp values
+            current_user.balance.balance -= price
+            @trade.service.user.balance.balance += price
+            p current_user.balance.balance
+            begin
+                @trade.service.user.balance.save!
+                current_user.balance.save!
+            rescue
+                flash[:alert] = 'Purchase unsuccessful: something went wrong. Please try again.'
+                current_user.trades.last.destroy!
+            else
+                flash[:notice] = 'Service purchased successfully. Please check your email for further details.'
+            end
+            redirect_to profile_services_path
         else    
-            flash[:alert] = 'Transaction unsuccessful. Please contact support.'
+            flash[:alert] = 'Purchase unsuccessful: something went wrong. Please try again.'
             render :new
         end
     end
@@ -57,19 +80,5 @@ class TradesController < ApplicationController
 
     def authorize_seller!(trade)
         redirect_to root_path and return unless current_user == trade.seller
-    end
-
-    def update_balances(trade)
-        current_user.balance.balance -= trade.service.price
-        trade.seller.balance.balance += trade.service.price
-        begin
-          current_user.balance.update!
-          trade.seller.balance.update!
-          flash[:notice] = 'Service purchased successfully. Please check your email for further details.'
-        rescue
-          flash[:alert] = 'Purchase unsuccessful: something went wrong. Please try again.'
-          current_user.trades.last.destroy!
-        end
-        redirect_to profile_services_path
     end
 end

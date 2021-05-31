@@ -6,7 +6,7 @@ h2 #{@description}#{@category} listings in #{current_user.region}
   p #{@services}
 - else
   - @services.each do |s|
-    .service
+    .service-container
       h3.service-title #{s.name}
       h4 Seller: #{s.user.name} - Rating: #{s.user.rating}
       p.service-body #{s.description}

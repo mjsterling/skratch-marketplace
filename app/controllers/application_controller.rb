@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
         flash[:alert] = 'You do not have permission to access that page.'
         redirect_to root_path and return
     end
+
+    def seller
+        User.find(id: self.seller_id)
+    end
 end

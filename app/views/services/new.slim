@@ -1,9 +1,10 @@
 p #{flash.alert}
 
 = form_for Service.new, url: services_path do |f|
+  = hidden_field :archived, value: false
   .field 
     = f.label :category, "Category"
-    = f.select :category, @categories
+    = f.select :category, @lists.categories
   .field
     = f.label :name, "Title", style: "margin-top: 2vh;"
     = f.text_field :name

@@ -41,6 +41,7 @@ button {
   height: 5vh;
   cursor: pointer;
   color: white;
+  width: 20%;
 }
 
 form {
@@ -55,9 +56,14 @@ input {
   border-radius: 2.5vh;
   cursor: pointer;
   color: white;
-  font-weight: bold;
   margin-bottom: 2vh;
-  padding: 1vh 3vw;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+  padding: 1vh 1vw;
+  width: 40vw;
+  max-width: 300px;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 input:hover {
@@ -192,6 +198,9 @@ td {
     margin-bottom: 2vh;
     padding: 1vh 1vw;
     text-align: center;
+    width: 40vw;
+    max-width: 300px;
+    font-size: 1rem;
 }
 
 #logo {
@@ -264,19 +273,13 @@ td {
   width: 6vh;
 }
 
-.range-field {
+.range-container {
   display: flex;
   flex-direction: column nowrap;
   align-items: center;
   font-size: 1.2rem;
   height: 3rem;
-}
-
-.range-numbers {
-  display: flex;
-  width: 100%;
-  flex-direction: row nowrap;
-  align-items: space-between;
+  width: 20%;
 }
 
 .searchbar {
@@ -287,11 +290,12 @@ td {
 }
 
 .service-container {
-  height: 30vh;
+  height: 35vh;
   width: 96%;
   max-width: 600px;
   border: 2px solid white;
   margin: 1vh 1vw;
+  padding: 2vh 2vw;
   border-radius: 2.5vh;
   display: flex;
   flex-flow: column nowrap;

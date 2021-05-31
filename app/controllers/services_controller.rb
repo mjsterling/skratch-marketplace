@@ -14,9 +14,8 @@ class ServicesController < ApplicationController
         end
     end
 
-    def create 
+    def create
         @service = Service.new(service_params)
-        @service.archived = false
         @service.user = current_user
         @service.region = current_user.region
         if @service.save!
@@ -48,6 +47,6 @@ class ServicesController < ApplicationController
 
     protected
     def service_params
-        params.require(:service).permit(:category, :name, :description, :price)
+        params.require(:service).permit(:category, :name, :description, :price, :archived)
     end
 end

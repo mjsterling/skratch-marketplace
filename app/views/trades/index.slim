@@ -10,7 +10,7 @@ h2 Sales
       span.bold
         = link_to("Buyer: #{sale.user.email}", "mailto:#{sale.user.email}")
       span Please email buyer to arrange delivery of service.
-      = form_with url: trade_path(purchase[:id]), method: :patch do |f|
+      = form_for sale do |f|
         = f.hidden_field :seller_confirmed, value: true
         = f.submit "Mark service as delivered"
 
@@ -22,10 +22,10 @@ h2 Purchases
     .service-container
       h3.bold #{purch.service.name}
       span Purchased: #{purch.created_at}
-      span Purchased for: #{purch.price} SkratchCoins
+      span Purchased for: #{purch.service.price} SkratchCoins
       span.bold.underline
-        = link_to("Seller: #{purch.user.email}", \
-          "mailto:#{purch.user.email}")
+        = link_to("Seller: #{purch.service.user.email}", \
+          "mailto:#{purch.service.user.email}")
       - unless purch.user_confirmed
         p Please email buyer to arrange delivery of service.
         = form_for purch, method: :patch do |f|
@@ -36,13 +36,9 @@ h2 Purchases
         = form_for Review.new, method: :post do |f|
           = f.hidden_field :trade_id, value: purch.id
           = f.hidden_field :seller_id, value: purch.seller_id
-          .range-numbers
+          .range-container
             - [1, 2, 3, 4, 5].each do |n|
-              .range-container style="margin-right: 2vw"
-                = f.label :rating, n
-                = f.radio_button :rating, value: n
+              = f.label :rating, n
+              = f.radio_button :rating, value: n
           = f.submit "Save Rating"
-
-.link-container
-  = link_to "View archived transactions", archived_trades_path
 

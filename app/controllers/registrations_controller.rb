@@ -15,7 +15,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    @just_signed_up = nil
 
     # encode avatar image to base64 string
     avatar = params[:user][:avatar]

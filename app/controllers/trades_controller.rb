@@ -1,36 +1,30 @@
 class TradesController < ApplicationController
 
     def index
-        @sales = Trade.where(seller_id: current_user.id, seller_confirmed: false)
-        @purchases = Trade.where(user_id: current_user.id, reviewed: false )
+        # trades that have not been marked delivered by seller
+        @sales = current_user.services.trades.where seller_confirmed: false
+
+        # trades that are not marked delivered and/or not reviewed
+        @purchases = current_user.trades.where user_confirmed: false
     end
 
     def new
-        @service = Service.find(params[:trade][:service_id])
-        @name = params[:name]
-        @description = params[:description]
-        @trade = Trade.new(service_id: @service.id, )
+        @service = Service.find(params[:service_id])
+        @trade = Trade.new(service_id: @service.id)
     end
 
     def create
         @trade = Trade.new(trade_params)
-        @trade.user = current_user
-        if @user.balance.balance < @trade.price
-            flash[:alert] = 'Insufficient balance to purchase this service. Please purchase more SkratchCoins.'
-            redirect_to profile_coins_path
-        end
-        return if @abort
+        @trade.service = Service.find(@trade.service_id)
+        flash[:alert] = "Insufficient balance." and redirect_to coins_path and return if current_user.balance.balance < @trade.service.price
 
         @trade.user = current_user
         @trade.user_confirmed = false
         @trade.seller_confirmed = false
         @trade.reviewed = false
-        @trade.archived = false
         if @trade.save!
-            update_balances(@trade.id, @trade.seller_id, @trade.price)
-            flash[:notice] = 'Service purchased successfully. Please check your email for further details.'
-            redirect_to profile_path
-        else
+            update_balances(@trade)
+        else    
             flash[:alert] = 'Transaction unsuccessful. Please contact support.'
             render :new
         end
@@ -51,32 +45,31 @@ class TradesController < ApplicationController
     end
 
     def archived
-        @sales = Trade.where(seller_id: current_user.id, seller_confirmed: true)
-        @purchases = Trade.where(user_id: current_user.id, reviewed: true)
+        @sales = current_user.services.trades.where seller_confirmed: true
+        @purchases = current_user.trades.where reviewed: true
     end
 
     protected
 
     def trade_params
-        params.require(:trade).permit(:user_id, :seller_id, :service_id, :price, :user_confirmed, :seller_confirmed, :reviewed)
+        params.require(:trade).permit(:user_id, :service_id, :user_confirmed, :seller_confirmed, :reviewed)
     end
 
     def authorize_seller!(trade)
-        redirect_to root_path and return unless trade.seller_id == current_user.id
+        redirect_to root_path and return unless current_user == trade.seller
     end
 
-    def update_balances(trade, seller, price)
-        @buyer_balance = Balance.find_by(user_id: current_user.id)
-        @seller_balance = Balance.find_by(user_id: seller)
-        @buyer_balance.balance -= price
-        @seller_balance.balance += price
+    def update_balances(trade)
+        current_user.balance.balance -= trade.service.price
+        trade.seller.balance.balance += trade.service.price
         begin
-          @buyer_balance.save!
-          @seller_balance.save!
+          current_user.balance.update!
+          trade.seller.balance.update!
+          flash[:notice] = 'Service purchased successfully. Please check your email for further details.'
         rescue
-          raise ActiveRecord::Rollback
           flash[:alert] = 'Purchase unsuccessful: something went wrong. Please try again.'
-          redirect_to profile_path
+          current_user.trades.last.destroy!
         end
+        redirect_to profile_services_path
     end
 end

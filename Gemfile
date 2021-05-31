@@ -66,3 +66,5 @@ gem "mini_magick", "~> 4.11"
 
 gem "stripe", "~> 5.33"
 
+
+gem "rails-i18n", "~> 6.0"

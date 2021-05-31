@@ -8,8 +8,8 @@ h2 #{@description}#{@category} listings in #{current_user.region}
   - @services.each do |s|
     .service
       h3.service-title #{s.name}
-      h4 Seller: #{s.seller.first_name} #{s.seller.last_name} - Rating: #{s.seller.rating}
+      h4 Seller: #{s.user.name} - Rating: #{s.user.rating}
       p.service-body #{s.description}
       p.service-body Price: #{s.price} SkratchCoins
       .link-container
-        = link_to "Purchase Service", new_trade_path( trade: { service_id: s.id }, description: s.description, price: s.price )
+        = link_to "Purchase Service", new_trade_path(service_id: s.id)

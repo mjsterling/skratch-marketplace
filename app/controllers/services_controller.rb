@@ -4,17 +4,14 @@ class ServicesController < ApplicationController
         @category = params[:category]
         @services = []
         if @description
+            # filter to region selected on signup and match typed keywords with any string partials in description field
             @services = Service.where(region: current_user.region).where("description LIKE ?", "%#{@description}%")
             @services = "Sorry, there are no listings for #{@description} in your area." if @services.empty?
         elsif @category
+            # filter listings by user region and selected category
             @services = Service.where(region: current_user.region, category: params[:category])
             @services = "Sorry, there are no listings for #{@category} in your area." if @services.empty?
         end
-
-    end
-
-    def new
-        @service = Service.new
     end
 
     def create 
@@ -46,18 +43,6 @@ class ServicesController < ApplicationController
         else
           flash[:alert] = 'Failed to update service.'
           render :edit
-        end
-    end
-
-    def destroy
-        @service = Service.find(params[:id])
-        authorize_user!(@service)
-        if @service.delete!
-            flash[:notice] = 'Service removed.'   
-            redirect_to profile_services_path
-        else
-            flash[:alert] = 'Service unable to be deleted. Please try again.'
-            render :destroy
         end
     end
 

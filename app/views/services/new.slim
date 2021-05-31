@@ -1,6 +1,6 @@
 p #{flash.alert}
 
-= form_for @service, url: services_path do |f|
+= form_for Service.new, url: services_path do |f|
   .field 
     = f.label :category, "Category"
     = f.select :category, @categories

@@ -23,6 +23,17 @@
   box-sizing: border-box;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+  border-radius: 1vh;
+  padding: 0.5vh;
+}
+
+a:hover {
+  text-shadow: 0 0 2px;
+}
+
 button {
   background-color: #4d0067;
   border: 2px solid white;
@@ -53,17 +64,6 @@ input:hover {
   text-shadow: 0 0 1px;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-  border-radius: 1vh;
-  padding: 0.5vh;
-}
-
-a:hover {
-  text-shadow: 0 0 2px;
-}
-
 label {
   font-size: 1rem;
   margin-right: 1vw;
@@ -71,9 +71,30 @@ label {
   height: 4vh;
 }
 
-#home-button {
-  margin: 0;
-  font-size: 2.4rem;
+table {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 90vw;
+  max-width: 800px;
+  text-align: center;
+  height: 40vh;
+}
+
+tr {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+th {
+  width: 50%;
+}
+
+td {
+  width: 50%;
+  border: 1px solid white;
 }
 
 .actions {
@@ -94,6 +115,7 @@ label {
 .bold {
   font-weight: bold;
 }
+
 .category {
   position: relative;
   background-color: #4d0067;
@@ -123,6 +145,11 @@ label {
 
 .hidden {
   display: none;
+}
+
+#home-button {
+  margin: 0;
+  font-size: 2.4rem;
 }
 
 .instruction {
@@ -161,6 +188,7 @@ label {
     cursor: pointer;
     color: white;
     font-weight: bold;
+    margin-top: 1vh;
     margin-bottom: 2vh;
     padding: 1vh 1vw;
     text-align: center;

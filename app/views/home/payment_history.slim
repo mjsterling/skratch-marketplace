@@ -5,11 +5,11 @@ h2 Payment History
   .link-container
     = link_to "Buy SkratchCoins", coins_path
 - else
-  table 
+  table
     tr 
       th Date 
       th Amount
-  - @payments.each do |payment|
-    tr 
-      td #{payment.created_at}
-      td #{payment.amount}
+    - @payments.each do |payment|
+      tr 
+        td #{I18n.l(payment.created_at, format: :long)}
+        td #{number_to_currency(payment.amount.to_i / 100)}

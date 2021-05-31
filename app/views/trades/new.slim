@@ -1,9 +1,9 @@
-h2 Purchasing #{@name}
-p #{@description}
-p Price: #{@trade.price} Skratchcoins
+h2 Purchasing #{@service.name}
+p #{@service.description}
+p Price: #{@service.price} Skratchcoins
 p Your Balance: #{current_user.balance.balance} SkratchCoins
 
 = form_for @trade, url: trades_path, method: :post do |f|
-  = f.hidden_field :service_id, value: @trade.service_id
+  = f.hidden_field :service_id, value: @service.id
   .actions
    = f.submit "Confirm Purchase"

@@ -1,13 +1,16 @@
 h2 Add/Update Services
 
-- @services.each do |s|
+- current_user.services.each do |s|
   .service
     h3.service-title #{s.name}
     p #{s.description}
     p #{s.price} per hour
-    = link_to "Edit", "/services/#{s.id}/edit"
-    = link_to "Remove", "/services/#{s.id}", method: :delete
+    .link-container
+      = link_to "Edit Listing", "/services/#{s.id}/edit"
+    = form_with url: service_path, method: :patch do
+      = hidden_field :id, value: s.id
+      = hidden_field :archived, value: true
+      = f.submit "Remove Listing"
 
-= link_to new_service_path do 
-  .category
-    span List a Service
+.link-container
+  = link_to "List a Service", new_service_path

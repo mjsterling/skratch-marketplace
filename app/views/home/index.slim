@@ -7,4 +7,4 @@ h1.instruction Or browse categories:
 .navlist 
   - @categories.each do |cat|
     .category
-      = link_to(cat, services_path(:category => cat))
+      = link_to(cat, services_path(category: cat))

@@ -49,6 +49,10 @@ input {
   padding: 1vh 3vw;
 }
 
+input:hover {
+  text-shadow: 0 0 1px;
+}
+
 a {
   color: white;
   text-decoration: none;
@@ -224,6 +228,21 @@ label {
   width: 6vh;
 }
 
+.range-field {
+  display: flex;
+  flex-direction: column nowrap;
+  align-items: center;
+  font-size: 1.2rem;
+  height: 3rem;
+}
+
+.range-numbers {
+  display: flex;
+  width: 100%;
+  flex-direction: row nowrap;
+  align-items: space-between;
+}
+
 .searchbar {
   width: 100%;
   display: flex;
@@ -232,7 +251,7 @@ label {
 }
 
 .service-container {
-  height: 25vh;
+  height: 30vh;
   width: 96%;
   max-width: 600px;
   border: 2px solid white;
@@ -241,4 +260,8 @@ label {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+}
+
+.underline {
+  text-decoration: underline;
 }

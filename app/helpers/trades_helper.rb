@@ -1,14 +1,6 @@
 module TradesHelper
-    def find_service(id, field)
-        service = Service.find_by(service_id: id)
-        data = ''
-        case field
-        when 'name'
-            data = service.name
-        when
-            data = 
-        end
 
-        data
+    def info(data, id, sym)
+        data.find{|record| record[:id] == id}[sym]
     end
 end

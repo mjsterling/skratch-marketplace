@@ -29,7 +29,7 @@ p #{@just_signed_up}
   .actions
     = f.submit "Save Changes", id: "submit", style: "margin-top: 2vh;"
 
-h3 Edit Login Details
+h2 Edit Login Details
 
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| 
   = render "users/shared/error_messages", resource: resource

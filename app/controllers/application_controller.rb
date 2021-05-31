@@ -11,11 +11,12 @@ class ApplicationController < ActionController::Base
         @categories = @lists.categories
     end
 
+    
     def authorize_user!(model)
         return if model.user_id == current_user.id
 
         flash[:alert] = 'You do not have permission to access that page.'
-        redirect_to root_path
+        redirect_to root_path and return
     end
 
     def profile_complete?

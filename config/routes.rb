@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {
-    :registrations => 'registrations'
+  devise_for :users, controllers: {
+    registrations: 'registrations'
   }
   
   root "home#index"
@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   resources :services
   resources :trades
+  get "/trades/archived", to: "trades#archived"
+  resources :reviews, only: [:create]
 end

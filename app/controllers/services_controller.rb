@@ -12,9 +12,12 @@ class ServicesController < ApplicationController
         @services = nil
         if @description
             @services = Service.where(region: current_user.region).where("description LIKE ?", "%#{@description}%")
+            @services = "Sorry, there are no listings for #{@description} in your area." if services.empty?
         elsif @category
             @services = Service.where(region: current_user.region, category: params[:category])
+            @services = "Sorry, there are no listings for #{@category} in your area." if services.empty?
         end
+
     end
 
     def new
@@ -22,10 +25,11 @@ class ServicesController < ApplicationController
     end
 
     def create 
-        params[:service][:region] = current_user.region
         @service = Service.new(service_params)
+        @service.archived = false
         @service.user = current_user
-        if @service.save
+        @service.region = current_user.region
+        if @service.save!
           flash[:notice] = 'Service added successfully.'   
           redirect_to profile_services_path
         else
@@ -66,6 +70,6 @@ class ServicesController < ApplicationController
 
     protected
     def service_params
-        params.require(:service).permit(:region, :category, :name, :description, :price)
+        params.require(:service).permit(:category, :name, :description, :price)
     end
 end

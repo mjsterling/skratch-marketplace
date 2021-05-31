@@ -2,12 +2,15 @@
 
 h2 #{@description}#{@category} listings in #{current_user.region ? current_user.region : "All Regions"}
 
-- @services.each do |s|
-  .service
-    h3.service-title #{owner_name(s.user_id)}
-    h3.service-title #{s.name}
-    p.service-body #{s.description}
-    p.service-body Price: #{s.price} SkratchCoins
-    .link-container
-      = link_to "Purchase Service", new_trade_path(:service_id => s.id, :name => s.name, :seller_id => s.user_id, \
-        :description => s.description, :price => s.price, :owner_name => owner_name(s.user_id))
+- if @services.is_a? String
+  p #{@services}
+- else
+  - @services.each do |s|
+    .service
+      h3.service-title #{owner_name(s.user_id)}
+      h3.service-title #{s.name}
+      p.service-body #{s.description}
+      p.service-body Price: #{s.price} SkratchCoins
+      .link-container
+        = link_to "Purchase Service", new_trade_path(:service_id => s.id, :name => s.name, :seller_id => s.user_id, \
+          :description => s.description, :price => s.price, :owner_name => owner_name(s.user_id))

@@ -1,26 +1,49 @@
 h2 Sales
-- if @sales.is_a?(String)
+- if @sales.is_a? String
   p #{@sales}
 - else 
-  = @sales.each do |sale|
-    .service-container
-      h3.bold #{sale[:name]}
-      p Purchased: #{sale[:created_at]}
-      p Purchased for: #{sale[:price]} SkratchCoins
-      p Buyer Email:
-      span.bold
-        = link_to("Buyer: #{sale[:email]}", "mailto:#{sale[:email]}")
-      p Please email buyer to arrange delivery of service.
-
-h2 Purchases
-- if @purchases.is_a?(String)
-  p #{@purchases}
-- else 
-  = @purchases.each do |sale| 
+  - @sales.each do |sale|
     .service-container
       h3.bold #{sale[:name]}
       span Purchased: #{sale[:created_at]}
       span Purchased for: #{sale[:price]} SkratchCoins
       span.bold
-        = link_to("Seller: #{sale[:email]}", "mailto:#{sale[:email]}")
-      span Please email seller to arrange delivery of service.
+        = link_to("Buyer: #{sale[:email]}", "mailto:#{sale[:email]}")
+      - unless sale[:seller_confirmed]
+        span Please email buyer to arrange delivery of service.
+        = form_with url: trade_path(purchase[:id]), method: :patch do |f|
+          = f.hidden_field :seller_confirmed, value: true
+          = f.submit "Mark service as delivered"
+
+h2 Purchases
+- if @purchases.is_a? String
+  p #{@purchases}
+- else 
+  - @purchases.each do |purch| 
+    .service-container
+      h3.bold #{info(@purch_data, purch.id, :name)}
+      span Purchased: #{purch[:created_at]}
+      span Purchased for: #{purch[:price]} SkratchCoins
+      span.bold.underline
+        = link_to("Seller: #{info(@purch_data, purch.id, :email)}", \
+          "mailto:#{info(@purch_data, purch.id, :email)}")
+      - unless purch[:user_confirmed]
+        p Please email buyer to arrange delivery of service.
+        = form_for purch, method: :patch do |f|
+          = f.hidden_field :user_confirmed, value: true
+          = f.submit "Mark service as received"
+      - if purch[:user_confirmed] && !purch[:reviewed]
+        p Please rate your experience with this seller out of 5.
+        = form_for Review.new, method: :post do |f|
+          = f.hidden_field :trade_id, value: purch[:id]
+          = f.hidden_field :seller_id, value: purch[:seller_id]
+          .range-numbers
+            - [1, 2, 3, 4, 5].each do |n|
+              .range-container style="margin-right: 2vw"
+                = f.label :rating, n
+                = f.radio_button :rating, value: n
+          = f.submit "Save Rating"
+
+.link-container
+  = link_to "View archived transactions", archived_trades_path
+

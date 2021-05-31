@@ -4,12 +4,21 @@ class User < ApplicationRecord
   has_one :balance
   has_many :services
   has_many :trades
-  has_many :reviews
+  has_many :reviews, through: :trades
   has_many :payments
 
-  validates_presence_of :email, :password, :first_name, :last_name, :region
+  validates :email, uniqueness: true
+  validates_presence_of :email, :first_name, :last_name, :region
+
+  def sales
+    Trade.where(seller_id: self.id)
+  end
 
   def rating
-    Review.where(seller_id: self.id).average(:rating).round(1)
+    Review.where(Tra sales.review.average(:rating).round(1)
+  end
+
+  def name
+    "#{self.first_name} #{self.last_name}"
   end
 end

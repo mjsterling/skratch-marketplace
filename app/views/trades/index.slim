@@ -24,8 +24,8 @@ h2 Purchases
       span Purchased: #{purch.created_at}
       span Purchased for: #{purch.price} SkratchCoins
       span.bold.underline
-        = link_to("Seller: #{purch.seller.email}", \
-          "mailto:#{purch.seller.email}")
+        = link_to("Seller: #{purch.user.email}", \
+          "mailto:#{purch.user.email}")
       - unless purch.user_confirmed
         p Please email buyer to arrange delivery of service.
         = form_for purch, method: :patch do |f|

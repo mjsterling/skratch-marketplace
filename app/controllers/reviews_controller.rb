@@ -2,7 +2,8 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user = current_user
-    @trade = Trade.find_by(@review.trade_id)
+    @trade = Trade.find(@review.trade_id)
+    @review.trade = @trade
     @trade.reviewed = true
 
     if @review.save! && trade.update!
@@ -15,6 +16,6 @@ class ReviewsController < ApplicationController
 
   protected
   def review_params
-    params.require(:review).permit(:trade_id, :seller_id, :rating)
+    params.require(:review).permit(:trade_id, :rating)
   end
 end

@@ -7,16 +7,10 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [:update]
 
   def create
-    # normal devise methods
     super
 
-    # prevent shenanigans
-    return unless current_user.email
-
-    @just_signed_up = "Please complete your profile to begin using Skratch."
-    @balance = Balance.new
-    @balance.balance = 0
-    @balance.user = current_user
+    @balance = Balance.new(balance: 0)
+    @balance.user = @user
     @balance.save!
   end
 
@@ -31,14 +25,14 @@ class RegistrationsController < Devise::RegistrationsController
       params[:user][:avatar] = "data:image/#{f_type};base64,#{Base64.encode64(bin_str)}"
     end
 
-    # normal devise controller methods
+    # normal devise methods
     super
   end
 
   protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[email password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[email password first_name last_name region])
   end
 
   def configure_account_update_params
@@ -48,7 +42,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    edit_user_registration_path
+    profile_path
   end
 
 end

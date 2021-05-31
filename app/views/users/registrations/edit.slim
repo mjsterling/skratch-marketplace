@@ -10,12 +10,12 @@ p #{@just_signed_up}
     = f.label :avatar, "Update Profile Picture"
     = f.file_field :avatar, accept:'image/*'
 
-  .field style="margin-bottom: 2vh;"
-    = f.label :region, "Region*"
-    = f.select :region, @regions, style: "color: #FFFFFF; background-color: #4D0067"
+  .field.dropdown
+    = f.label :region, "Region"
+    = f.select :region, @lists.regions
 
   .field
-    = f.label :first_name, "First Name*"
+    = f.label :first_name, "First Name"
     = f.text_field :first_name
 
   .field
@@ -27,7 +27,7 @@ p #{@just_signed_up}
     = f.password_field :current_password, autocomplete: "current-password"
   
   .actions
-    = f.submit "Save Changes", id: "submit", style: "margin-top: 2vh;"
+    = f.submit "Save Changes", id: "submit"
 
 h2 Edit Login Details
 
@@ -57,7 +57,7 @@ h2 Edit Login Details
     = f.password_field :current_password, autocomplete: "current-password"
 
   .actions
-    = f.submit "Save Changes", id: "submit", style: "margin-top: 2vh;" 
+    = f.submit "Save Changes", id: "submit"
  
 h3 Unhappy?
 = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete

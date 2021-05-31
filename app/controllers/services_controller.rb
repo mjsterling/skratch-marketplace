@@ -1,21 +1,14 @@
 class ServicesController < ApplicationController
-    attr_accessor :services, :description, :category
-
     def index
-        unless profile_complete?
-            flash[:alert] = 'Please complete your profile to use Skratch.'
-            redirect_to edit_user_registration_path and return
-        end
-
         @description = params[:description]
         @category = params[:category]
-        @services = nil
+        @services = []
         if @description
             @services = Service.where(region: current_user.region).where("description LIKE ?", "%#{@description}%")
-            @services = "Sorry, there are no listings for #{@description} in your area." if services.empty?
+            @services = "Sorry, there are no listings for #{@description} in your area." if @services.empty?
         elsif @category
             @services = Service.where(region: current_user.region, category: params[:category])
-            @services = "Sorry, there are no listings for #{@category} in your area." if services.empty?
+            @services = "Sorry, there are no listings for #{@category} in your area." if @services.empty?
         end
 
     end
@@ -59,7 +52,7 @@ class ServicesController < ApplicationController
     def destroy
         @service = Service.find(params[:id])
         authorize_user!(@service)
-        if @service.delete
+        if @service.delete!
             flash[:notice] = 'Service removed.'   
             redirect_to profile_services_path
         else

@@ -2,61 +2,22 @@ class TradesController < ApplicationController
 
     def index
         @sales = Trade.where(seller_id: current_user.id, seller_confirmed: false)
-        @sales_data = []
-
-        if @sales.empty?
-            @sales = 'No active sales' 
-        else
-            @sales_data = @sales.map do |sale|
-                buyer = User.find_by(id: sale.user_id)
-                service = Service.find_by(id: sale.service_id)
-                {
-                    id: sale_id,
-                    email: buyer.email,
-                    name: service.name
-                }
-            end
-        end
-
         @purchases = Trade.where(user_id: current_user.id, reviewed: false )
-        @purch_data = []
-
-        if @purchases.empty?
-            @purchases = 'No active purchases' 
-        else
-            @purch_data = @purchases.map do |purchase|
-                seller = User.find_by(id: purchase.seller_id)
-                service = Service.find_by(id: purchase.service_id)
-                {
-                    id: purchase.id,
-                    email: seller.email,
-                    name: service.name
-                }
-            end
-        end
     end
 
     def new
-        redirect_to root_path and return unless params[:service_id]
-        
-        @check_balance = Balance.find_by(user_id: current_user.id)
-        @user_balance = @check_balance.balance
+        @service = Service.find(params[:trade][:service_id])
         @name = params[:name]
         @description = params[:description]
-        @trade = Trade.new
-        @trade[:seller_id] = params[:seller_id]
-        @trade[:service_id] = params[:service_id]
-        @trade[:price] = params[:price]
+        @trade = Trade.new(service_id: @service.id, )
     end
 
     def create
         @trade = Trade.new(trade_params)
-        @balance = Balance.find_by(user_id: current_user.id)
-        @abort = false
-        if @balance.balance.to_i < @trade.price.to_i
+        @trade.user = current_user
+        if @user.balance.balance < @trade.price
             flash[:alert] = 'Insufficient balance to purchase this service. Please purchase more SkratchCoins.'
-            @abort = true
-            redirect_to profile_path # TODO BONUS redirect to buy page instead then back to service if possible
+            redirect_to profile_coins_path
         end
         return if @abort
 
@@ -94,7 +55,6 @@ class TradesController < ApplicationController
         @purchases = Trade.where(user_id: current_user.id, reviewed: true)
     end
 
-
     protected
 
     def trade_params
@@ -102,7 +62,7 @@ class TradesController < ApplicationController
     end
 
     def authorize_seller!(trade)
-        redirect_to root_path and return unless trade[:seller_id] == current_user.id
+        redirect_to root_path and return unless trade.seller_id == current_user.id
     end
 
     def update_balances(trade, seller, price)

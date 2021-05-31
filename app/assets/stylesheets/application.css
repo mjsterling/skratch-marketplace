@@ -76,6 +76,10 @@ label {
   font-size: 2.4rem;
 }
 
+.actions {
+  margin-top: 2vh;
+}
+
 .body-flex-container {
   display: flex;
   flex-flow: column nowrap;
@@ -104,6 +108,10 @@ label {
 
 .changepw {
   display: none;
+}
+
+.dropdown {
+  margin-bottom: 2vh;
 }
 
 .field {

@@ -1,31 +1,37 @@
 h2 Transaction History 
 
-h3 Sales 
+h3 Sales
 
-table 
-  tr 
-    th Date 
-    th Service 
-    th Buyer 
-    th Price 
-- @sales.each do |sale|
-  tr 
-    td #{sale.created_at}
-    td #{sale.service.name}
-    td #{sale.user.email}
-    td #{sale.price}
+- if @sales.empty?
+  p No sales recorded.
+- else 
+  table 
+    tr 
+      th Date 
+      th Service 
+      th Buyer 
+      th Price 
+  - @sales.each do |sale|
+    tr 
+      td #{sale.created_at}
+      td #{sale.service.name}
+      td #{sale.user.email}
+      td #{sale.price}
 
-h3 Sales 
+h3 Purchases
 
-table 
-  tr 
-    th Date 
-    th Service 
-    th Buyer 
-    th Price 
-- @purchases.each do |purch|
-  tr 
-    td #{purch.created_at}
-    td #{purch.service.name}
-    td #{purch.user.email}
-    td #{purch.price}
+- if @purchases.empty? 
+  p No purchases recorded.
+- else
+  table 
+    tr 
+      th Date 
+      th Service 
+      th Buyer 
+      th Price 
+  - @purchases.each do |purch|
+    tr 
+      td #{purch.created_at}
+      td #{purch.service.name}
+      td #{purch.user.email}
+      td #{purch.price}

@@ -5,6 +5,11 @@ class User < ApplicationRecord
   has_many :services
   has_many :trades
   has_many :reviews
+  has_many :payments
 
-  # Devise will validate signup params automatically
+  validates_presence_of :email, :password, :first_name, :last_name, :region
+
+  def rating
+    Review.where(seller_id: self.id).average(:rating).round(1)
+  end
 end

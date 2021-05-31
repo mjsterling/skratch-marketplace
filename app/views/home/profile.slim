@@ -4,14 +4,16 @@ p.bold
     = "Welcome back, #{current_user.first_name}"
   - else
     = "Please complete your profile."
-p Current Balance: #{@balance} SkratchCoins
+p Current Balance: #{current_user.balance.balance} SkratchCoins
 .category
-  = link_to("Buy SkratchCoins",    "#")
+  = link_to("Buy SkratchCoins",    coins_path)
+.category 
+  = link_to("Payment History",     payment_history_path)
 .category
   = link_to("Edit profile",        edit_user_registration_path)
 .category   
-  = link_to("Add/update services", @add_services_path)
+  = link_to("Add/update services", add_services_path)
 .category
-  = link_to("View active trades",  trades_path)
+  = link_to("View trades",         trades_path)
 .category
   = link_to("Sign out",            destroy_user_session_path, method: :delete)

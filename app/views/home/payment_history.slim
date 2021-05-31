@@ -1,0 +1,15 @@
+h2 Payment History 
+
+- if @payments.empty?
+  p No payments recorded yet.
+  .link-container
+    = link_to "Buy SkratchCoins", coins_path
+- else
+  table 
+    tr 
+      th Date 
+      th Amount
+  - @payments.each do |payment|
+    tr 
+      td #{payment.created_at}
+      td #{payment.amount}
